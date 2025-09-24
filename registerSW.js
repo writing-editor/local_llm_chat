@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/local_llm_chat/sw.js', { scope: '/local_llm_chat/' })})}
