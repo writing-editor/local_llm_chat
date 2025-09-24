@@ -1,0 +1,32 @@
+# .github/workflows/deploy.yml
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Or whichever branch you use as your primary
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # Use the latest version of Ubuntu
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Specify a Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the application
+        run: npm run build # This creates the 'dist' folder
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist # The directory to deploy

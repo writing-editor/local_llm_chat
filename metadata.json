@@ -1,0 +1,5 @@
+{
+  "name": "Assistant Drafter",
+  "description": "A simple, private, and offline-first chat application to help draft letters and other official documents. The AI model runs entirely in your browser.",
+  "requestFramePermissions": []
+}
