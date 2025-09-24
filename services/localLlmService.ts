@@ -71,8 +71,8 @@ class OllamaService {
     async generateResponseStream(
         messages: Message[],
         onUpdate: (text: string) => void,
-        // 1. ADD a new parameter for the system prompt
-        systemPrompt: string
+        systemPrompt: string,
+        signal: AbortSignal
     ) {
         // 2. REMOVE the hardcoded system instruction from here
         // const systemInstruction = 'You are a professional assistant...';
@@ -110,6 +110,7 @@ class OllamaService {
                     messages: ollamaMessages,
                     stream: true,
                 }),
+                signal,
             });
 
             if (!response.ok) {
@@ -149,9 +150,13 @@ class OllamaService {
                     }
                 }
             }
-        } catch (e) {
+        } catch (e: any) {
+            if (e.name === 'AbortError') {
+                console.log("Stream generation aborted by user.");
+                return;
+            }
             console.error("Failed to generate response from Ollama", e);
-            throw e; // Re-throw the error to be handled by the UI
+            throw e; 
         }
     }
 }

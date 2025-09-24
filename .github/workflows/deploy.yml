@@ -5,7 +5,8 @@ on:
   push:
     branches:
       - main # Or whichever branch you use as your primary
-
+permissions:
+  contents: write
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest # Use the latest version of Ubuntu
